@@ -1,13 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# Basic algorithm for API v0.1.1
+# Basic algorithm for API v0.2.0
 #
 # The basic algorithm aims at transforming an user input Excel file (CSV, XLS, XLSX) into an object of the **Dataset_core class** with the following attributes:
 # - filename: the name of the Excel file including the extension
 # - rows: the count of rows of the Excel file
 # - columns: the count of columns of the Excel file
-# - headers: the list of columns headers of the Excel file.
+# - headers: the list of columns headers of the Excel file
+# - values: the processed values of the Excel file
 
 
 # Loading of the required librairies
@@ -46,3 +44,10 @@ class Dataset_core:
         # Capture of the dataframe's list of column headers
 
         self.headers = list(self.df.columns.values)
+
+    def generate_content(self):
+
+        # Capture of the dataframe's values
+
+        self.df.insert(0 , 'row', self.df.index)
+        self.values = self.df.to_dict(orient='records')
